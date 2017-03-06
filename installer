@@ -1,0 +1,40 @@
+clear
+echo "Starting Motioneye Installation"
+sleep 1
+clear
+cd /home/pi
+sudo wget https://raw.githubusercontent.com/marcotini/Raspberry-Pi-camera-HomeKit/master/motioneye -O motioneye
+sudo sh motioneye
+clear
+echo "Starting HomeKit camera Installation"
+sleep 1
+clear
+cd /home/pi/HAP-NodeJS
+nodeV="$(node -v)"
+if [ "$nodev" != "v4.4.4" ]; then
+	clear
+	echo "Updating Node to Latest Version"
+	sudo npm install n -g
+	sudo n 4.4.4
+	sudo npm install forever -g
+fi
+clear
+echo "Ensuring HAP-NodeJS has all up-to-date prerequisites"
+sleep 1
+clear
+sudo npm install 
+sudo npm install node-cmd
+clear
+echo "Installing camera-specific files"
+sleep 1
+clear
+sudo wget https://raw.githubusercontent.com/marcotini/Raspberry-Pi-camera-HomeKit/master/task -O task
+sudo chmod +x task
+sudo systemctl stop motioneye
+sudo wget https://raw.githubusercontent.com/legotheboss/YouTube-files/master/ffmpeg_3.1.4-1_armhf.deb -O ffmpeg.deb
+sudo dpkg -i ffmpeg.deb 
+sudo rm -rf ffmpeg.deb
+sudo systemctl start motioneye
+cd lib/
+sudo mv Camera.js OriginalCamera.js.bak
+sudo wget https://raw.githubusercontent.com/marcotini/Raspberry-Pi-camera-HomeKit/master/Camera.js -O Camera.js
