@@ -37,4 +37,4 @@ sudo rm -rf ffmpeg.deb
 sudo systemctl start motioneye
 cd lib/
 sudo mv Camera.js OriginalCamera.js.bak
-sudo wget https://raw.githubusercontent.com/marcotini/Raspberry-Pi-camera-HomeKit/master/Camera.js -O Camera.js
+sudo wget https://raw.githubusercontent.com/marcotini/Raspberry-Pi-camera-HomeKit/master/camera -O Camera.js
